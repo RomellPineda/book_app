@@ -12,7 +12,15 @@ app.use(express.static('./public'));
 app.set('view engine', 'ejs');
 
 app.get('/hello', (req, res) => {
-  res.render('pages/index.ejs');
+  res.render('pages/index');
 });
+
+// app.get('/', (req, res) => {
+//   res.render('pages/index');
+// })
+
+app.post('/', (req, res) => {
+  res.render('pages/index', { work : 'it worked'});
+})
 
 app.listen(PORT, () => console.log(`app running on ${PORT}`));

@@ -9,6 +9,19 @@
 </head>
 <body>
   <h1>Welcome to Book App</h1>
-  
+  <form method="POST" action="/">
+    <label>author
+      <input name="author" type="text">
+    </label>
+    <input type="submit" value="search for a book">
+
+    <label>Search by Author
+        <input type="radio" name="search" value="author">
+      </label>
+
+      <label>Search by Title
+        <input type="radio" name="search" value="title">
+      </label>
+  </form>
 </body>
 </html>
