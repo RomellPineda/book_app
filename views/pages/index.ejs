@@ -22,18 +22,27 @@
     <h3 class="center">Search by Title or Author</h3>
     <div class="content">
       <form method="POST" action="/searches">
-        <label>
-          <input name="query" type="text">
-        </label>
-        <input type="submit" value="search for books">
+        <fieldset class="google-search">
+          <label >
+            <input id="entername" name="query" type="text"  placeholder ="enter the name">
+          </label >
+        </fieldset>
+        
+        <fieldset class="google-search radio">
+          <label >Search by Author
+            <input type="radio" name="search" value="author">
+          </label>
+        </fieldset>
+        
+        <fieldset class="google-search radio">
+          <label >Search by Title
+            <input type="radio"  name="search" value="title">
+        </fieldset>
 
-        <label>Search by Author
-          <input type="radio" name="search" value="author">
-        </label>
 
-        <label>Search by Title
-          <input type="radio" name="search" value="title">
-        </label>
+        <fieldset class="google-search submit">
+          <button class="google-search submit" type ="submit"> Search the Google Books </button>
+        </fieldset>
       </form>
     </div>
   </main>

@@ -5,10 +5,19 @@ const ejs = require('ejs');
 const superagent = require('superagent');
 const PORT = process.env.PORT || 3000;
 const app = express();
+const pg = require('pg');
+// const client = new pg.Client(process.env.DATABASE_URL);
+
+require('dotenv').config();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('./public'));
 app.set('view engine', 'ejs');
+
+
+// client.on('error', (e) => console.error(e));
+// client.connect();
+
 
 app.get('/', (req, res) => {
   res.render('pages/index');
@@ -28,13 +37,12 @@ app.post('/searches', (req, res) => {
 });
 
 function Book(bookObj) {
-  this.image = bookObj.volumeInfo.imageLinks && bookObj.volumeInfo.imageLinks.thumbnail;
+  this.image_url = bookObj.volumeInfo.imageLinks && bookObj.volumeInfo.imageLinks.thumbnail;
   this.title = bookObj.volumeInfo.title;
   this.author = bookObj.volumeInfo.authors;
   this.summary = bookObj.volumeInfo.description;
   this.categorie = bookObj.volumeInfo.categories;
-  //ISBN work when all other properties on the constructor are ommented out
-  // this.isbn = bookObj.volumeInfo.industryIdentifiers[0].identifier;
+  this.isbn = bookObj.volumeInfo.industryIdentifiers[0].identifier;
 }
 
 app.listen(PORT, () => console.log(`app running on ${PORT}`));
