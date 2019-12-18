@@ -1,37 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Searches</title>
 </head>
+
 <body>
   <h1>Search results</h1>
 
-<div>
-<% books.forEach(book => { %>
-  <% if (book.image) { %>
-    <img src = "<%= book.image %>" />
-  <% } %>
-  <h2><%= book.title %> </h2>
-  <h3><%= book.author %> </h3>
-  <h3><%= book.category %> </h3>
-  <h4><%= book.summary %> </h4>
-
-
-
-
-
-
-<% }) %>
-
-
-
-
-</div>
-
-  
+  <div>
+    <% books.forEach(book => { %>
+    <% if (book.image) { %>
+    <img src="<%= book.image %>" />
+    <% } %>
+    <h2><%= book.title %> </h2>
+    <h3><%= book.author %> </h3>
+    <h3><%= book.category %> </h3>
+    <h4><%= book.summary %> </h4>
+    <% }) %>
+  </div>
 
 </body>
+
 </html>
