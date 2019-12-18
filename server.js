@@ -6,7 +6,6 @@ const superagent = require('superagent');
 const PORT = process.env.PORT || 3000;
 const app = express();
 const pg = require('pg');
-// const client = new pg.Client(process.env.DATABASE_URL);
 
 require('dotenv').config();
 
@@ -15,13 +14,28 @@ app.use(express.static('./public'));
 app.set('view engine', 'ejs');
 
 
-// client.on('error', (e) => console.error(e));
-// client.connect();
+const client = new pg.Client(process.env.DATABASE_URL);
+client.on('error', (e) => console.error(e));
+client.connect();
 
+app.get('/search', (req, res) => {
+  res.render('pages/googleSearch');
+});
 
 app.get('/', (req, res) => {
-  res.render('pages/index');
+  const instruction = 'SELECT * FROM books;';
+  client.query(instruction).then(function(sqlData){
+    console.log(sqlData.rows);
+    const booksArray = sqlData.rows;
+    if(booksArray.length > 0){
+      res.render('pages/index', { booksArray });
+    } else {
+      res.render('pages/index');
+    }
+
+  });
 });
+
 
 app.get('/hello', (req, res) => {
   res.render('pages/hello');

@@ -19,31 +19,18 @@
   </header>
 
   <main>
-    <h3 class="center">Search by Title or Author</h3>
+    <h3 class="center"><span id="count"><%=  booksArray.length %></span> Books</h3>
     <div class="content">
-      <form method="POST" action="/searches">
-        <fieldset class="google-search">
-          <label >
-            <input id="entername" name="query" type="text"  placeholder ="enter the name">
-          </label >
-        </fieldset>
-        
-        <fieldset class="google-search radio">
-          <label >Search by Author
-            <input type="radio" name="search" value="author">
-          </label>
-        </fieldset>
-        
-        <fieldset class="google-search radio">
-          <label >Search by Title
-            <input type="radio"  name="search" value="title">
-        </fieldset>
-
-
-        <fieldset class="google-search submit">
-          <button class="google-search submit" type ="submit"> Search the Google Books </button>
-        </fieldset>
-      </form>
+      <% booksArray.forEach(book => { %>
+      <% if (book.image_url) { %>
+      <img src="<%= book.image_url %>" />
+      <% } %>
+      <h2><%= book.title %> </h2>
+      <h3><%= book.author %> </h3>
+      <h4><%= book.isbn %> </h4>
+      <h3><%= book.category %> </h3>
+      <p><%= book.summary %> </p>
+      <% }) %>
     </div>
   </main>
 </body>

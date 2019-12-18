@@ -8,6 +8,7 @@ summary TEXT,
 categorie VARCHAR(255)
 );
 
-INSERT INTO books (id, author, title, ISBN, image_url, summary, categorie)
-VALUES('Charles Dickens', 'Moby Dick', '000000001', 'https://via.placeholder.com/250', 'Best book ever', 'fiction')
-VALUES('Charles D', 'Moby ', '2', 'https://via.placeholder.com/150', 'Worst book ever', 'non fiction')
+INSERT INTO books (author, title, isbn, image_url, summary, categorie)
+VALUES('Charles Dickens', 'Moby Dick', '000000001', 'https://via.placeholder.com/250', 'Best book ever', 'fiction');
+INSERT INTO books (author, title, isbn, image_url, summary, categorie)
+VALUES('Charles D', 'Moby ', '2', 'https://via.placeholder.com/150', 'Worst book ever', 'non fiction');
