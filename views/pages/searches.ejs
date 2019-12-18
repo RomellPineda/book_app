@@ -6,23 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Searches</title>
+  <link rel="stylesheet" href="styles/styles.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-  <h1>Search results</h1>
+  <header>
+    <nav>
+      <span>Book App</span>
+      <i class="fa fa-bars"></i>
+    </nav>
+  </header>
 
-  <div>
-    <% books.forEach(book => { %>
-    <% if (book.image) { %>
-    <img src="<%= book.image %>" />
-    <% } %>
-    <h2><%= book.title %> </h2>
-    <h3><%= book.author %> </h3>
-    <h3><%= book.category %> </h3>
-    <h4><%= book.summary %> </h4>
-    <% }) %>
-  </div>
-
+  <main>
+    <h3 class="center">Search results</h3>
+    <div class="content">
+      <% books.forEach(book => { %>
+      <% if (book.image) { %>
+      <img src="<%= book.image %>" />
+      <% } %>
+      <h2><%= book.title %> </h2>
+      <h3><%= book.author %> </h3>
+      <h3><%= book.category %> </h3>
+      <h4><%= book.summary %> </h4>
+      <% }) %>
+    </div>
+  </main>
 </body>
 
 </html>

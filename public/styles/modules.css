@@ -2,3 +2,13 @@
   color: rgb(28, 29, 29);
   padding: 40vh 0 40vh 0;
 }
+
+.center {
+  text-align: center;
+}
+
+.content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
