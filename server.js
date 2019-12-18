@@ -36,10 +36,11 @@ app.get('/', (req, res) => {
   });
 });
 
-
 app.get('/hello', (req, res) => {
   res.render('pages/hello');
 });
+
+app.get('/books/:id', getOneBook);
 
 app.post('/searches', (req, res) => {
   superagent.get(`https://www.googleapis.com/books/v1/volumes?q=${req.body.query}+in${req.body.search}`).then(data => {
@@ -57,6 +58,16 @@ function Book(bookObj) {
   this.summary = bookObj.volumeInfo.description;
   this.categorie = bookObj.volumeInfo.categories;
   this.isbn = bookObj.volumeInfo.industryIdentifiers[0].identifier;
+}
+
+function getOneBook(req, res) {
+  const instructions = 'SELECT * FROM books WHERE id=$1';
+  console.log(req.params);
+  const values = [req.params.id];
+  client.query(instructions, values).then(resultFromSql => {
+    res.render('pages/singleBook', {oneBook : resultFromSql.rows[0]});
+  });
+
 }
 
 app.listen(PORT, () => console.log(`app running on ${PORT}`));
