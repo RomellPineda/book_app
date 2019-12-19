@@ -27,18 +27,18 @@
       <% } %>
       <h2><%= book.title %> </h2>
       <h3><%= book.author %> </h3>
-      <h4><%= book.isbn %> </h4>
+      <!-- <h4><%= book.isbn %> </h4> -->
       <h3><%= book.categorie %> </h3>
       <p><%= book.summary %> </p>
 
-      <form action="/save-book" method="POST">
+      <form action="/edit" method="POST">
         <input type ="hidden" name="image_url" value="<%= book.image_url %>">
         <input type ="hidden" name="title" value="<%= book.title %>">
         <input type ="hidden" name="author" value="<%= book.author %>">
         <input type ="hidden" name="isbn" value="<%= book.isbn %>">
-        <input type ="text" name="categorie" value="<%= book.categorie %>">
+        <input type ="hidden" name="categorie" value="<%= book.categorie %>">
         <input type ="hidden" name="summary" value="<%= book.summary %>">
-        <input type="submit">
+        <input type="submit" value="Select">
       </form>
       <% }) %>
     </div>
