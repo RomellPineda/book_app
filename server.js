@@ -32,7 +32,6 @@ app.get('/', (req, res) => {
     } else {
       res.render('pages/index');
     }
-
   });
 });
 
@@ -50,6 +49,17 @@ app.post('/searches', (req, res) => {
     res.render('pages/error', { error });
   });
 });
+
+app.post('/save-book', (req, res) => {
+client.query(`INSERT INTO books (image_url, title, author, isbn, categorie,summary)
+VALUES ($1, $2, $3, $4, $5, $6)`, Object.values(req.body)).then(() =>{
+  res.redirect('/');
+});
+});
+app.get('/books/:id' , (req,res) => {
+const idFromRoute = req.params.id;
+client.query('SELECT * FROM books WHERE id ;')
+})
 
 function Book(bookObj) {
   this.image_url = bookObj.volumeInfo.imageLinks && bookObj.volumeInfo.imageLinks.thumbnail;
