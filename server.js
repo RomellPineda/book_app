@@ -24,22 +24,22 @@ app.get('/search', (req, res) => {
 
 app.get('/', (req, res) => {
   const instruction = 'SELECT * FROM books;';
-  client.query(instruction).then(function(sqlData){
+  client.query(instruction).then(function (sqlData) {
     console.log(sqlData.rows);
     const booksArray = sqlData.rows;
-    if(booksArray.length > 0){
+    if (booksArray.length > 0) {
       res.render('pages/index', { booksArray });
     } else {
       res.render('pages/index');
     }
-
   });
 });
-
 
 app.get('/hello', (req, res) => {
   res.render('pages/hello');
 });
+
+app.get('/books/:id', getOneBook);
 
 app.post('/searches', (req, res) => {
   superagent.get(`https://www.googleapis.com/books/v1/volumes?q=${req.body.query}+in${req.body.search}`).then(data => {
@@ -50,13 +50,39 @@ app.post('/searches', (req, res) => {
   });
 });
 
+app.post('/save-book', (req, res) => {
+  client.query(`INSERT INTO books (image_url, title, author, isbn, categorie,summary)
+  VALUES ($1, $2, $3, $4, $5, $6);`, Object.values(req.body)).then(() => {
+    res.redirect('/books/1');
+  });
+});
+
+app.get('/books/:id', (req, res) => {
+  const idFromRoute = req.params.id;
+  client.query('SELECT * FROM books WHERE id ;')
+})
+
+app.post('/edit', (req, res) => {
+  res.render('pages/editForm', { book: req.body });
+})
+
 function Book(bookObj) {
   this.image_url = bookObj.volumeInfo.imageLinks && bookObj.volumeInfo.imageLinks.thumbnail;
   this.title = bookObj.volumeInfo.title;
   this.author = bookObj.volumeInfo.authors;
   this.summary = bookObj.volumeInfo.description;
-  this.categorie = bookObj.volumeInfo.categories;
+  // this.categorie = bookObj.volumeInfo.categories;
   this.isbn = bookObj.volumeInfo.industryIdentifiers[0].identifier;
+}
+
+function getOneBook(req, res) {
+  const instructions = 'SELECT * FROM books WHERE id=$1';
+  console.log(req.params);
+  const values = [req.params.id];
+  client.query(instructions, values).then(resultFromSql => {
+    res.render('pages/singleBook', { oneBook: resultFromSql.rows[0] });
+  });
+
 }
 
 app.listen(PORT, () => console.log(`app running on ${PORT}`));
