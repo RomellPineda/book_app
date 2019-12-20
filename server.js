@@ -57,7 +57,17 @@ app.post('/save-book', (req, res) => {
 
 app.post('/edit', (req, res) => {
   res.render('pages/editForm', { book: req.body });
-})
+});
+
+app.delete('/delete', deleteOne);
+
+app.put('/books/:tomato_book_id', (req,res) => {
+  const sqlQuery = 'UPDATE books SET title=$1, image_url=$2, author=$3, isbn=$4, categorie=$5, summary=$6 WHERE id = $7';
+  const values = [req.body.title,req.body.image_url,req.body.author,req.body.isbn,req.body.categorie, req.body.summary, req.params.tomato_book_id];
+  client.query(sqlQuery, values). then(() => {
+    res.redirect('/');
+  });
+});
 
 function Book(bookObj) {
   this.image_url = bookObj.volumeInfo.imageLinks && bookObj.volumeInfo.imageLinks.thumbnail;
@@ -77,3 +87,11 @@ function getOneBook(req, res) {
 }
 
 app.listen(PORT, () => console.log(`app running on ${PORT}`));
+
+function deleteOne(req,res){
+client.query('DELETE FROM books WHERE id=$1',[req.body.sqlId]).then(() => {
+  res.redirect('/');
+});
+
+}
+
