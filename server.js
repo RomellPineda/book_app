@@ -27,11 +27,7 @@ app.get('/', (req, res) => {
   client.query(instruction).then(function (sqlData) {
     console.log(sqlData.rows);
     const booksArray = sqlData.rows;
-    if (booksArray.length > 0) {
-      res.render('pages/index', { booksArray });
-    } else {
-      res.render('pages/index');
-    }
+    booksArray.length > 0 ? res.render('pages/index', { booksArray }) : res.render('pages/index');
   });
 });
 
@@ -75,7 +71,6 @@ function Book(bookObj) {
 function getOneBook(req, res) {
   const instructions = 'SELECT * FROM books WHERE id=$1';
   const values = [req.params.id];
-  console.log('This is from getOneBook function !!!!!!!!!!!!!!!!!!!', values);
   client.query(instructions, values).then(resultFromSql => {
     res.render('pages/singleBook', { oneBook: resultFromSql.rows[0] });
   });
