@@ -6,12 +6,14 @@ const superagent = require('superagent');
 const PORT = process.env.PORT || 3000;
 const app = express();
 const pg = require('pg');
+const expressLayouts = require('express-ejs-layouts');
 
 require('dotenv').config();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('./public'));
 app.set('view engine', 'ejs');
+app.use(expressLayouts);
 
 
 const client = new pg.Client(process.env.DATABASE_URL);
@@ -61,10 +63,10 @@ app.post('/edit', (req, res) => {
 
 app.delete('/delete', deleteOne);
 
-app.put('/books/:tomato_book_id', (req,res) => {
+app.put('/books/:tomato_book_id', (req, res) => {
   const sqlQuery = 'UPDATE books SET title=$1, image_url=$2, author=$3, isbn=$4, categorie=$5, summary=$6 WHERE id = $7';
-  const values = [req.body.title,req.body.image_url,req.body.author,req.body.isbn,req.body.categorie, req.body.summary, req.params.tomato_book_id];
-  client.query(sqlQuery, values). then(() => {
+  const values = [req.body.title, req.body.image_url, req.body.author, req.body.isbn, req.body.categorie, req.body.summary, req.params.tomato_book_id];
+  client.query(sqlQuery, values).then(() => {
     res.redirect('/');
   });
 });
@@ -88,10 +90,10 @@ function getOneBook(req, res) {
 
 app.listen(PORT, () => console.log(`app running on ${PORT}`));
 
-function deleteOne(req,res){
-client.query('DELETE FROM books WHERE id=$1',[req.body.sqlId]).then(() => {
-  res.redirect('/');
-});
+function deleteOne(req, res) {
+  client.query('DELETE FROM books WHERE id=$1', [req.body.sqlId]).then(() => {
+    res.redirect('/');
+  });
 
 }
 
