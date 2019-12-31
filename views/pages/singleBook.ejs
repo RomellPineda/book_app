@@ -1,41 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Selected Book</title>
-</head>
-<body>
-  <div class="categories">
-    <img src="<%= oneBook.image_url %>" />
-    <h2>Title: <%= oneBook.title %></h2>
-    <p>Author: <%= oneBook.author %></p>
-    <p>Category: <%= oneBook.categorie %></p>
-    <p>Description: <%=oneBook.summary %></p>
-    <p>ISBN: <%= oneBook.isbn %></p>
-    // edit book buttom to fire up form action to edit book
-<form method="POST" action="/book/<%=oneBook.id%>?_method=PUT">
-<input name = "title" type="text" value="<%=oneBook.title %>">
-<input name = "author" type="text" value="<%=oneBook.author %>">
-<input name = "categorie" type="text" value="<%=oneBook.categorie %>">
-<input name = "description" type="text" value="<%=oneBook.summary %>">
-<input name = "isbn" type="text" value="<%=oneBook.isbn %>">
-<input type="submit>"
-
-</form>
-
-<!-- <form action="/delete" method="POST">
-  <input type=number name="sqlId">
+<div class="categories">
+  <img src="<%= oneBook.image_url %>" />
+  <h2>Title: <%= oneBook.title %></h2>
+  <p>Author: <%= oneBook.author %></p>
+  <p>Category: <%= oneBook.categorie %></p>
+  <p>Description: <%=oneBook.summary %></p>
+  <p>ISBN: <%= oneBook.isbn %></p>
+  // edit book buttom to fire up form action to edit book
+  <form method="POST" action="/book/<%=oneBook.id%>?_method=PUT">
+    <input name="title" type="text" value="<%=oneBook.title %>">
+    <input name="author" type="text" value="<%=oneBook.author %>">
+    <input name="categorie" type="text" value="<%=oneBook.categorie %>">
+    <input name="description" type="text" value="<%=oneBook.summary %>">
+    <input name="isbn" type="text" value="<%=oneBook.isbn %>">
+    <input type="submit>" </form> <!-- <form action="/delete" method="POST">
+    <input type=number name="sqlId">
     <input type="submit">
   </form> -->
 
 
-  </div>
-  <script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="/public/app.js"></script>
-</body>
-</html>
